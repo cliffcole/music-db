@@ -42,7 +42,7 @@ CREATE TABLE "Albums" (
     id integer NOT NULL,
     title character varying(255),
     description text,
-    "releaseDate" timestamp with time zone,
+    "releaseDate" integer,
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL,
     "ArtistId" integer
@@ -115,7 +115,7 @@ ALTER SEQUENCE "Artists_id_seq" OWNED BY "Artists".id;
 
 CREATE TABLE "Songs" (
     id integer NOT NULL,
-    title character varying(255),
+    name character varying(255),
     description text,
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL,
@@ -168,7 +168,7 @@ ALTER SEQUENCE "Songs_id_seq" OWNED BY "Songs".id;
 
 CREATE TABLE "Songwriters" (
     id integer NOT NULL,
-    title character varying(255),
+    name character varying(255),
     description text,
     "createdAt" timestamp with time zone NOT NULL,
     "updatedAt" timestamp with time zone NOT NULL
@@ -276,6 +276,7 @@ ALTER TABLE ONLY "Tracks" ALTER COLUMN id SET DEFAULT nextval('"Tracks_id_seq"':
 --
 
 COPY "Albums" (id, title, description, "releaseDate", "createdAt", "updatedAt", "ArtistId") FROM stdin;
+2	Dark Side of the Moon	\N	1973	2017-11-09 15:32:23.174668-05	2017-11-09 15:32:23.174668-05	1
 \.
 
 
@@ -284,6 +285,7 @@ COPY "Albums" (id, title, description, "releaseDate", "createdAt", "updatedAt", 
 --
 
 COPY "Artists" (id, name, "createdAt", "updatedAt") FROM stdin;
+1	Pink Floyd	2017-11-09 15:30:20.815933-05	2017-11-09 15:30:20.815933-05
 \.
 
 
@@ -291,7 +293,7 @@ COPY "Artists" (id, name, "createdAt", "updatedAt") FROM stdin;
 -- Data for Name: Songs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "Songs" (id, title, description, "createdAt", "updatedAt", "ArtistId", "SongwriterId") FROM stdin;
+COPY "Songs" (id, name, description, "createdAt", "updatedAt", "ArtistId", "SongwriterId") FROM stdin;
 \.
 
 
@@ -307,7 +309,7 @@ COPY "SongsToTracks" ("createdAt", "updatedAt", "SongId", "TrackId") FROM stdin;
 -- Data for Name: Songwriters; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "Songwriters" (id, title, description, "createdAt", "updatedAt") FROM stdin;
+COPY "Songwriters" (id, name, description, "createdAt", "updatedAt") FROM stdin;
 \.
 
 
@@ -323,14 +325,14 @@ COPY "Tracks" (id, length, "createdAt", "updatedAt", "AlbumId") FROM stdin;
 -- Name: Albums_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"Albums_id_seq"', 1, false);
+SELECT pg_catalog.setval('"Albums_id_seq"', 3, true);
 
 
 --
 -- Name: Artists_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"Artists_id_seq"', 1, false);
+SELECT pg_catalog.setval('"Artists_id_seq"', 1, true);
 
 
 --
