@@ -13,9 +13,7 @@ app.get('/', (req,res) => {
     
 })
 
-models.sequelize.sync({force: true}).then(function() {
     app.listen(3001);
-    
-})
+
 
 
